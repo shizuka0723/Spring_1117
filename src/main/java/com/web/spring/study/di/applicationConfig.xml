@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-4.3.xsd
+          http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-4.3.xsd
+">
+
+    <bean id="family" class="com.web.spring.study.di.Family">
+        <constructor-arg value="John" />
+    </bean>
+    <bean id="family2" class="com.web.spring.study.di.Family">
+        <constructor-arg>
+            <set>
+                <value>apple</value>
+                <value>banana</value>
+            </set>
+        </constructor-arg>
+    </bean>
+    <bean id="family3" class="com.web.spring.study.di.Family">
+        <constructor-arg>
+            <list>
+                <value>A</value>
+                <value>B</value>
+            </list>
+        </constructor-arg>
+    </bean>
+    <bean id="family4" class="com.web.spring.study.di.Family">
+        <constructor-arg>
+            <map>
+                <entry key="apple" value="190" />
+                <entry key="banana" value="180" />
+            </map>
+        </constructor-arg>
+    </bean>
+    <bean id="family5" class="com.web.spring.study.di.Family">
+        <constructor-arg value="John" index="0" />
+        <constructor-arg index="1">
+            <set>
+                <value>apple</value>
+                <value>banana</value>
+            </set>
+        </constructor-arg>
+        <constructor-arg index="2" >
+            <list>
+                <value>A</value>
+                <value>B</value>
+            </list>
+        </constructor-arg >
+        <constructor-arg index="3" >
+            <map>
+                <entry key="apple" value="190" />
+                <entry key="banana" value="180" />
+            </map>
+        </constructor-arg>
+    </bean>
+</beans>
