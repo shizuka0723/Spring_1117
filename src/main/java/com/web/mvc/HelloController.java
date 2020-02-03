@@ -1,5 +1,8 @@
 package com.web.mvc;
 
+import com.web.mvc.beans.User;
+import java.util.Map;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.CookieValue;
@@ -14,6 +17,9 @@ import org.springframework.web.servlet.ModelAndView;
 @RequestMapping("/hello")
 public class HelloController {
     
+    @Autowired
+    private HelloRepository hr;
+            
     @RequestMapping("/hi")
     @ResponseBody
     public String sayHi(){
@@ -62,7 +68,7 @@ public class HelloController {
     }
     
     @RequestMapping("/testParam") //testParm?name=xxx&age=xxx
-    public String testParam(Model model,@RequestParam("name") String name,@RequestParam Integer age){
+    public String testParam(Model model,@RequestParam("name") String name,@RequestParam("age") Integer age){
         model.addAttribute("name", name + " " + age);
         return "hello";
     }
@@ -84,4 +90,48 @@ public class HelloController {
         model.addAttribute("name", userAgent);
         return "hello";
     }
+    
+    @RequestMapping("/user/add") //../user/add?name=Johm&age=18&num.id=1
+    public String addUser(Model model,User user){
+        hr.addUser(user);
+        model.addAttribute("name", user);
+        return "hello";
+    }
+
+    @RequestMapping("/user/query") 
+    public String queryUser(Model model,User user){
+        model.addAttribute("name", hr.query());
+        return "hello";
+    }
+    
+    @RequestMapping("/user/get/{id}") 
+    public String getUser(Model model,User user,@PathVariable("id") Integer id){
+        user = hr.getUser(id);
+        model.addAttribute("name", user);
+        return "hello";
+    }
+    
+    @RequestMapping("/user/update/{id}") //../user/update/10?name=Johm&age=18
+    public String updateUser(Model model,User user,@PathVariable("id") Integer id){
+        hr.updateUser(id, user);
+        model.addAttribute("name", "updateUser");
+        return "hello";
+    }
+    
+    @RequestMapping("/user/remove/{id}") 
+    public String removeUser(Model model,@PathVariable("id") Integer id){
+        hr.removeUser(id);
+        model.addAttribute("name", hr.query());
+        return "hello";
+    }
+    
+    // 利用 Map 容器收集資料
+    @RequestMapping("/map/add") //../map/add?name=John&age=18
+    public String addMap(Model model,@RequestParam Map<String,Object> map){
+        System.out.println(map);
+        model.addAttribute("name", map);
+        return "hello";
+    }
+    
+    
 }

@@ -13,7 +13,7 @@
     <servlet>
         <servlet-name>springmvc</servlet-name>
         <servlet-class>org.springframework.web.servlet.DispatcherServlet</servlet-class>
-        <!--設定配置黨-->
+        <!--設定配置檔-->
         <init-param>
             <param-name>contextConfigLocation</param-name>
             <param-value>/WEB-INF/applicationContext.xml</param-value>
