@@ -1,6 +1,7 @@
-package com.web.mvc;
+package com.web.mvc.controller;
 
 import com.web.mvc.beans.User;
+import com.web.mvc.repository.HelloRepository;
 import java.util.Map;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
