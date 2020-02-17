@@ -78,7 +78,6 @@ public class MemberController {
     }
     
     @RequestMapping("/update/{id}")
-    @ResponseBody
     public String update(@PathVariable Integer id,@ModelAttribute Member member){
         //return id +", "+member.toString();
         Member o_member = dao.getMember(id);
@@ -87,6 +86,6 @@ public class MemberController {
         o_member.setPass(member.getPass());
         o_member.setPriority(member.getPriority());
         dao.update(member);
-        return member + "updated.";
+        return "redirect:../input";
     }
 }
