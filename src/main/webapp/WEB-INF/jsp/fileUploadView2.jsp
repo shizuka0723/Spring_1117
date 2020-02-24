@@ -11,7 +11,7 @@
     <body style="padding: 20px">
         <form:form modelAttribute="photo" class="pure-form" 
                    method="POST"
-                   action="uploadFile"
+                   action="/Spring_0117/mvc/upload2/uploadFile"
                    enctype="multipart/form-data">
             <fieldset>
                 <legend>Photo upload form</legend>
@@ -19,6 +19,7 @@
                 <form:hidden path="base64" />
                 Select a file to upload <p />
                 <input type="file" name="file" /><p/>
+                <img width="${previewWidth}" src="data:image/png;base64,${photo.base64}" /><p/>
                 <button type="submit" class="pure-button pure-button-primary">Submit</button>
             </fieldset>
             <form:errors path="*" style="color:red"/>
@@ -28,6 +29,7 @@
                 <tr>
                     <th>name</th>
                     <th>photo</th>
+                    <th>update</th>
                 </tr>
             </thead>
             <tbody>
@@ -35,6 +37,7 @@
                     <tr>
                         <td>${photo.name}</td>
                         <td><img width="300" src="data:image/png;base64, ${photo.base64}" /></td>
+                        <td><a href="/Spring_0117/mvc/upload2/get/${photo.name}">Update</a></td>
                     </tr>
                 </c:forEach>
             </tbody>

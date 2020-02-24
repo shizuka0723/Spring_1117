@@ -13,6 +13,7 @@ import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -32,11 +33,22 @@ public class FileUploadController2 {
     public String input(Model model) {
         model.addAttribute("photo", new Photo());
         model.addAttribute("list", list);
+        model.addAttribute("previewWidth", 0);
+        return "fileUploadView2";
+    }
+    
+    @GetMapping("/get/{name}")
+    public String get(@PathVariable String name,Model model) {
+        Photo photo = list.stream().filter(p -> p.getName().equals(name)).findAny().get();
+        model.addAttribute("photo", photo);
+        model.addAttribute("list", list);
+        model.addAttribute("previewWidth", 100);
         return "fileUploadView2";
     }
 
     @PostMapping("/uploadFile")
     public String submit(@ModelAttribute Photo photo,@RequestParam("file") MultipartFile file, Model model, BindingResult result) {
+        model.addAttribute("previewWidth", 0);
         photo.setBase64(getBase64(file));
         System.out.println(photo.getBase64().length() + " : "+photo.getBase64());
         validator.validate(photo, result);
